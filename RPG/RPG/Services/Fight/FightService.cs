@@ -23,6 +23,7 @@ namespace RPG.Services.Fight
             int damage;
             while (_Champions.Count > 1)
             {
+                Console.WriteLine("\nWalka: " + _Champions[0].GetName() + " vs " + _Champions[1].GetName() + "\n");
                 _Champions[0].CurrentHealth = _Champions[0].Health;
                 _Champions[1].CurrentHealth = _Champions[1].Health;
                 while (_Champions[0].CurrentHealth > 0 && (_Champions[1].CurrentHealth > 0))
@@ -47,7 +48,7 @@ namespace RPG.Services.Fight
                     {
                         Ladder.Add(_Champions[1]);
                         _Champions.RemoveAt(1);
-                        Console.WriteLine("");
+                        Console.WriteLine("\nZwynięża " + _Champions[0].GetName() + "\n");
                         break;
                     }
                     if (IsMiss(_Champions[1].MissChance))
@@ -69,7 +70,7 @@ namespace RPG.Services.Fight
                     {
                         Ladder.Add(_Champions[0]);
                         _Champions.RemoveAt(0);
-                        Console.WriteLine("");
+                        Console.WriteLine("\nZwynięża " + _Champions[0].GetName() + "\n");
                         break;
                     }
                 }
