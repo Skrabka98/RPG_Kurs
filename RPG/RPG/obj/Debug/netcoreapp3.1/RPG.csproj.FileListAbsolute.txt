@@ -1,0 +1,13 @@
+C:\Repos\RPG_Kurs\RPG\RPG\bin\Debug\netcoreapp3.1\RPG.exe
+C:\Repos\RPG_Kurs\RPG\RPG\bin\Debug\netcoreapp3.1\RPG.deps.json
+C:\Repos\RPG_Kurs\RPG\RPG\bin\Debug\netcoreapp3.1\RPG.runtimeconfig.json
+C:\Repos\RPG_Kurs\RPG\RPG\bin\Debug\netcoreapp3.1\RPG.runtimeconfig.dev.json
+C:\Repos\RPG_Kurs\RPG\RPG\bin\Debug\netcoreapp3.1\RPG.dll
+C:\Repos\RPG_Kurs\RPG\RPG\bin\Debug\netcoreapp3.1\RPG.pdb
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.csprojAssemblyReference.cache
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.AssemblyInfoInputs.cache
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.AssemblyInfo.cs
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.csproj.CoreCompileInputs.cache
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.dll
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.pdb
+C:\Repos\RPG_Kurs\RPG\RPG\obj\Debug\netcoreapp3.1\RPG.genruntimeconfig.cache
