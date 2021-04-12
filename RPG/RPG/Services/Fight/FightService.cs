@@ -34,6 +34,7 @@ namespace RPG.Services.Fight
                         {
                             _Champions[1].LifeReduct(CritDmg(damage));
                             Console.WriteLine(_Champions[0].GetName() + " Trafił krytycznie " + _Champions[1].GetName() + " za " + CritDmg(damage) + " Jego obecny poziom życia wynosi " + _Champions[1].CurrentHealth);
+
                         }
                         else
                         {
@@ -41,7 +42,7 @@ namespace RPG.Services.Fight
                             Console.WriteLine(_Champions[0].GetName() + " Trafił " + _Champions[1].GetName() + " za " + damage + " Jego obecny poziom życia wynosi " + _Champions[1].CurrentHealth);
                         }
                     }
-                    else Console.WriteLine(_Champions[0].GetName() + " nie trafił!");
+                    else { Console.WriteLine(_Champions[0].GetName() + " nie trafił!"); }
                     if (_Champions[1].CurrentHealth <= 0) 
                     {
                         Ladder.Add(_Champions[1]);
@@ -57,10 +58,13 @@ namespace RPG.Services.Fight
                             _Champions[0].LifeReduct(CritDmg(damage));
                             Console.WriteLine(_Champions[1].GetName() + " Trafił krytycznie " + _Champions[0].GetName() + " za " + CritDmg(damage) + " Jego obecny poziom życia wynosi " + _Champions[0].CurrentHealth);
                         }
-                        _Champions[0].LifeReduct(damage);
-                        Console.WriteLine(_Champions[1].GetName() + " Trafił " + _Champions[0].GetName() + " za " + damage + " Jego obecny poziom życia wynosi " + _Champions[0].CurrentHealth);
+                        else
+                        {
+                            _Champions[0].LifeReduct(damage);
+                            Console.WriteLine(_Champions[1].GetName() + " Trafił " + _Champions[0].GetName() + " za " + damage + " Jego obecny poziom życia wynosi " + _Champions[0].CurrentHealth);
+                        }
                     }
-                    else Console.WriteLine(_Champions[0].GetName() + " nie trafił!");
+                    else { Console.WriteLine(_Champions[1].GetName() + " nie trafił!"); }
                     if (_Champions[0].CurrentHealth <= 0)
                     {
                         Ladder.Add(_Champions[0]);
