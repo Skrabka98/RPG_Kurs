@@ -20,7 +20,8 @@ namespace RPG.Champions
         {
             return new List<Skill>
             {
-                new HeadShot()
+                new HeadShot(),
+                new LongShot()
             };
         }
     }

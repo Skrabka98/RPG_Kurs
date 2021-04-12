@@ -4,7 +4,12 @@ using System.Text;
 
 namespace RPG.Skills
 {
-    class LongShot
+    class LongShot : Skill
     {
+        public LongShot()
+        {
+            Damage = 45;
+            UseChance = 10;
+        }
     }
 }

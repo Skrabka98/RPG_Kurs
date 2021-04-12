@@ -4,7 +4,12 @@ using System.Text;
 
 namespace RPG.Skills
 {
-    class IceBall
+    class IceBall : Skill
     {
+        public IceBall()
+        {
+            Damage = 35;
+            UseChance = 20;
+        }
     }
 }

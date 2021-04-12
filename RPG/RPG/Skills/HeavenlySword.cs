@@ -4,7 +4,12 @@ using System.Text;
 
 namespace RPG.Skills
 {
-    class HeavenlySword
+    class HeavenlySword : Skill
     {
+        public HeavenlySword()
+        {
+            Damage = 30;
+            UseChance = 15;
+        }
     }
 }

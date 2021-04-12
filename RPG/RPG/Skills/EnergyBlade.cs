@@ -4,7 +4,12 @@ using System.Text;
 
 namespace RPG.Skills
 {
-    class EnergyBlade
+    class EnergyBlade : Skill
     {
+        public EnergyBlade()
+        {
+            Damage = 20;
+            UseChance = 20;
+        }
     }
 }
