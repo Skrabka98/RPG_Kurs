@@ -32,6 +32,10 @@ namespace RPG.Champions
         {
             CurrentHealth -= damage;
         }
+        public void RestartHp()
+        {
+            CurrentHealth = Health;
+        }
 
     }
 }
