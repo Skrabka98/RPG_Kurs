@@ -15,8 +15,6 @@ namespace RPG.Services.Fight
         }
         public void LadderSystem()
         {
-            
-            
             Console.WriteLine("#################");
             foreach (var item in Ladder)
             {

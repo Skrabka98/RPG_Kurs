@@ -1,4 +1,5 @@
 ﻿using RPG.Champions;
+using RPG.Skills;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +9,11 @@ namespace RPG.Services.Fight
     class FightService
     {
         List<Champion> _Champions;
-        List<Champion> Ladder = new List<Champion>();
         private readonly int critChance = 20;
         private LeaderService _leaderService;
-
+        private DamageService DamageService = new DamageService();
+        private MessageService MessageService = new MessageService();
+        private SkillService SkillService = new SkillService();
         public FightService(List<Champion> Champions)
         {
             _Champions = Champions;
@@ -19,62 +21,49 @@ namespace RPG.Services.Fight
         }
         public void Fight()
         {
-            
             int damage;
             while (_Champions.Count > 1)
             {
                 var player1 = _Champions[0];
                 var player2 = _Champions[1];
-                Console.WriteLine("\nWalka: " + _Champions[0].GetName() + " vs " + _Champions[1].GetName() + "\n");
-                player1.RestartHp();
-                player2.RestartHp();
+                MessageService.StartFight(player1.GetName(), _Champions[1].GetName());
+                _Champions[0].RestartHp();
+                _Champions[1].RestartHp();
                 while (player1.CurrentHealth > 0 && (player2.CurrentHealth > 0))
                 {
-                    if (IsHit(player1.MissChance))
+                    
+                    for (int i = 0; i < 2; i++)
                     {
-                        damage = HitDmg(player1.MinDmg, player1.MaxDmg);
-                        if (IsCritical(player1.CanCrit))
+                        if (IsHit(_Champions[i].MissChance))
                         {
-                            player2.LifeReduct(CritDmg(damage));
-                            Console.WriteLine(player1.GetName() + " Trafił krytycznie " + player2.GetName() + " za " + CritDmg(damage) + " Jego obecny poziom życia wynosi " + player2.CurrentHealth);
+                            damage = HitDmg(_Champions[i].MinDmg, _Champions[i].MaxDmg);
+                            bool criticalHit = false;
+                            Skill skill = SkillService.SkillHandler(_Champions[i], _Champions[i == 0 ? 1 : 0]);
+                            if (skill != null)
+                            {
+                                damage = skill.Damage;
+                            }
+                            else if (IsCritical(_Champions[i].CanCrit))
+                            {
+                                criticalHit = true;
+                                damage = CritDmg(damage);
+                            }
+                            DamageService.Hit(_Champions[i], _Champions[i == 0 ? 1 : 0], damage, criticalHit, skill);
 
                         }
                         else
                         {
-                            player2.LifeReduct(damage);
-                            Console.WriteLine(player1.GetName() + " Trafił " + player2.GetName() + " za " + damage + " Jego obecny poziom życia wynosi " + player2.CurrentHealth);
+                            MessageService.Miss(_Champions[i].GetName());
                         }
-                    }
-                    else { Console.WriteLine(player1.GetName() + " nie trafił!"); }
-                    if (player2.CurrentHealth <= 0) 
-                    {
-                        _leaderService.AddToLadder(player2);
-                        _Champions.RemoveAt(1);
-                        Console.WriteLine("\nZwynięża " + player1.GetName() + "\n");
-                        break;
-                    }
-                    if (IsHit(player2.MissChance))
-                    {
-                        damage = HitDmg(player2.MinDmg, player2.MaxDmg);
-                        if (IsCritical(player2.CanCrit))
+                        if (_Champions[i == 0 ? 1 : 0].CurrentHealth <= 0)
                         {
-                            player1.LifeReduct(CritDmg(damage));
-                            Console.WriteLine(player2.GetName() + " Trafił krytycznie " + player1.GetName() + " za " + CritDmg(damage) + " Jego obecny poziom życia wynosi " + player1.CurrentHealth);
-                        }
-                        else
-                        {
-                            player1.LifeReduct(damage);
-                            Console.WriteLine(player2.GetName() + " Trafił " + player1.GetName() + " za " + damage + " Jego obecny poziom życia wynosi " + player1.CurrentHealth);
+                            _leaderService.AddToLadder(_Champions[i == 0 ? 1 : 0]);
+                            _Champions.RemoveAt(i == 0 ? 1 : 0);
+                            MessageService.Winner(_Champions[0].GetName());
+                            break;
                         }
                     }
-                    else { Console.WriteLine(player2.GetName() + " nie trafił!"); }
-                    if (player1.CurrentHealth <= 0)
-                    {
-                        _leaderService.AddToLadder(player1);
-                        _Champions.RemoveAt(0);
-                        Console.WriteLine("\nZwynięża " + player1.GetName() + "\n");
-                        break;
-                    }
+                   
                 }
             }
             _leaderService.AddToLadder(_Champions[0]);
@@ -103,7 +92,6 @@ namespace RPG.Services.Fight
                 {
                     return true;
                 }
-                
             }
             return false;
         }
