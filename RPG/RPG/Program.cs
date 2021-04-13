@@ -11,9 +11,8 @@ namespace RPG
             game.AddChampion(new Archer("Bonobo"))
                 .AddChampion(new Mage("Dudu"))
                 .AddChampion(new Warrior("Ciamajda"))
-                .AddChampion(new Archer("Pifek"))
-                .AddChampion(new Mage("Kapucyn"))
-                .AddChampion(new Archer("Pupu"));
+                .AddChampion(new Archer("NoName"))
+                .AddChampion(new Mage("Kapucyn"));
             game.Tournament();
         }
     }
