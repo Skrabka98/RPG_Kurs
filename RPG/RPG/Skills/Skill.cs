@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RPG.Skills
 {
-    abstract class Skill
+    public abstract class Skill
     {
         public int Damage { get; set; }
         public int UseChance { get; set; }

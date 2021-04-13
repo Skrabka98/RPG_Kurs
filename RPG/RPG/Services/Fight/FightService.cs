@@ -12,12 +12,13 @@ namespace RPG.Services.Fight
         private readonly int critChance = 20;
         private LeaderService _leaderService;
         private DamageService DamageService = new DamageService();
-        private MessageService MessageService = new MessageService();
+        private MessageService _MessageService;
         private SkillService SkillService = new SkillService();
-        public FightService(List<Champion> Champions)
+        public FightService(List<Champion> Champions, MessageService MessageService)
         {
             _Champions = Champions;
             _leaderService = new LeaderService(_Champions.Count);
+            _MessageService = MessageService;
         }
         public void Fight()
         {
@@ -26,7 +27,7 @@ namespace RPG.Services.Fight
             {
                 var player1 = _Champions[0];
                 var player2 = _Champions[1];
-                MessageService.StartFight(player1.GetName(), _Champions[1].GetName());
+                _MessageService.StartFight(player1.GetName(), _Champions[1].GetName());
                 _Champions[0].RestartHp();
                 _Champions[1].RestartHp();
                 while (player1.CurrentHealth > 0 && (player2.CurrentHealth > 0))
@@ -53,13 +54,13 @@ namespace RPG.Services.Fight
                         }
                         else
                         {
-                            MessageService.Miss(_Champions[i].GetName());
+                            _MessageService.Miss(_Champions[i].GetName());
                         }
                         if (_Champions[i == 0 ? 1 : 0].CurrentHealth <= 0)
                         {
                             _leaderService.AddToLadder(_Champions[i == 0 ? 1 : 0]);
                             _Champions.RemoveAt(i == 0 ? 1 : 0);
-                            MessageService.Winner(_Champions[0].GetName());
+                            _MessageService.Winner(_Champions[0].GetName());
                             break;
                         }
                     }

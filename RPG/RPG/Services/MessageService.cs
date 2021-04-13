@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RPG.Services
 {
-    class MessageService
+    class MessageService : IMessageService
     {
         public void Winner(string winner)
         {

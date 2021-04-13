@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RPG.Champions
 {
-    abstract class Champion
+    public abstract class Champion
     {
         public string Name { get; set; }
         public int Health { get; set; }

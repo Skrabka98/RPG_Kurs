@@ -6,10 +6,14 @@ using RPG.Services.Fight;
 
 namespace RPG
 {
-    sealed class Game
+     sealed class Game 
     {
-        
-        public List<Champion> Champions { get; set; } = new List<Champion>();
+        private readonly FightService _fightService;
+        public List<Champion> Champions = new List<Champion>();
+        public Game(FightService fightService)
+        {
+            _fightService = fightService;
+        }
         public Game AddChampion(Champion champion)
         {
             Champions.Add(champion);
@@ -19,8 +23,7 @@ namespace RPG
         }
         public void Tournament()
         {
-            FightService fightService = new FightService(Champions);
-            fightService.Fight();
+            _fightService.Fight();
         }
 
     }
