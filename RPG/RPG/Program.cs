@@ -39,7 +39,7 @@ namespace RPG
                     services.AddTransient<IMessageService, MessageService>();
                     services.AddTransient<Game>();
                     services.AddTransient<FightService>();
-                    services.AddTransient<Champion>();
+                    services.AddScoped<Champion>();
 
                 });
         }

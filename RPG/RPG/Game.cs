@@ -9,9 +9,10 @@ namespace RPG
      sealed class Game 
     {
         private readonly FightService _fightService;
-        public List<Champion> Champions = new List<Champion>();
-        public Game(FightService fightService)
+        public List<Champion> Champions;
+        public Game(FightService fightService, List<Champion> _Champions)
         {
+            Champions = _Champions;
             _fightService = fightService;
         }
         public Game AddChampion(Champion champion)
