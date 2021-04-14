@@ -35,11 +35,16 @@ namespace RPG
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
-                    services.AddTransient<Program>();
-                    services.AddTransient<IMessageService, MessageService>();
-                    services.AddTransient<Game>();
-                    services.AddTransient<FightService>();
+                    services.AddScoped<Program>();
+                    services.AddScoped<IMessageService, MessageService>();
+                    services.AddScoped<Game>();
+                    services.AddScoped<FightService>();
                     services.AddScoped<Champion>();
+                    services.AddScoped<Champion>((serviceProvider) => serviceProvider.GetRequiredService<Archer>());
+                    services.AddScoped<Champion>((serviceProvider) => serviceProvider.GetRequiredService<Warrior>());
+                    services.AddScoped<Champion>((serviceProvider) => serviceProvider.GetRequiredService<Mage>());
+
+
 
                 });
         }
