@@ -1,4 +1,5 @@
 ﻿using RPG.Champions;
+using RPG.Interfaces;
 using RPG.Skills;
 using System;
 using System.Collections.Generic;
@@ -8,23 +9,29 @@ namespace RPG.Services.Fight
 {
     class DamageService
     {
-        private MessageService MessageService = new MessageService();
+        private IMessageFactory _messageFactory;
+
+        public DamageService(IMessageFactory messageFactory)
+        {
+            _messageFactory = messageFactory;
+        }
         public void Hit(Champion attacker, Champion defender, int dmg, bool crit, Skill skill)
         {
+            var messageService = _messageFactory.Create();
             defender.LifeReduct(dmg);
             if (skill != null)
             {
-                MessageService.Skill(attacker.GetName(), defender.GetName(), defender.CurrentHealth, skill);
+                messageService.Skill(attacker.GetName(), defender.GetName(), defender.CurrentHealth, skill);
 
             }
             else if (crit)
             {
-                MessageService.Crit(attacker.GetName(), defender.GetName(), dmg, defender.CurrentHealth);
+                messageService.Crit(attacker.GetName(), defender.GetName(), dmg, defender.CurrentHealth);
 
             }
             else
             {
-                MessageService.Hit(attacker.GetName(), defender.GetName(), dmg, defender.CurrentHealth);
+                messageService.Hit(attacker.GetName(), defender.GetName(), dmg, defender.CurrentHealth);
             }
         }
 

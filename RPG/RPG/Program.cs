@@ -32,34 +32,22 @@ namespace RPG
 
             _game.Tournament();
         }
-        public static bool Decision()
-        {
-            string answer;
-            Console.WriteLine("Zapisać do pliku? (Yes)");
-            answer = Console.ReadLine();
-            if (answer == "Yes" || answer == "yes")
-            {
-                return true;
-            }
-            return false;
 
-        }
         private static IHostBuilder CreateHostBuilder(string[] args)
         {
             return Host.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
                     services.AddScoped<Program>();
-                    if (Decision()) 
-                    { 
-                        services.AddScoped<IMessageService, PrintToFileService>(); 
-                    }
-                    else { services.AddScoped<IMessageService, MessageService>(); }
+                    services.AddSingleton<IMessageFactory, MessageFactory>();
                     services.AddScoped<IMessageService, MessageService>();
+                    services.AddScoped<IMessageService, PrintToFileService>(); 
                     services.AddScoped<ILadderService, LadderService>();
                     services.AddScoped<Game>();
-                    services.AddScoped(x => new FightService(x.GetRequiredService<IMessageService>(),
-                        x.GetRequiredService<ILadderService>()));
+                    services.AddScoped(x => new DamageService(x.GetRequiredService<IMessageFactory>()));
+                    services.AddScoped(x => new FightService(x.GetRequiredService<IMessageFactory>(),
+                                       x.GetRequiredService<ILadderService>(),
+                                       x.GetRequiredService<DamageService>()));
                 });
         }
 

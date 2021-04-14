@@ -12,24 +12,26 @@ namespace RPG.Services.Fight
     {
         private readonly int critChance = 20;
         private ILadderService _ladderService;
-        private DamageService DamageService = new DamageService();
-        private IMessageService _MessageService;
+        private readonly DamageService _damageService;
+        private IMessageFactory _messageFactory;
         private SkillService SkillService = new SkillService();
         private int championCount;
-        public FightService(IMessageService messageService, ILadderService ladderService)
+        public FightService(IMessageFactory messageFactory, ILadderService ladderService, DamageService damageService)
         {    
-            _MessageService = messageService;
+            _messageFactory = messageFactory;
             _ladderService = ladderService;
+            _damageService = damageService;
         }
         public void Fight(List<Champion> _Champions)
         {
             championCount = _Champions.Count;
             int damage;
+            var messageService = _messageFactory.Create();
             while (_Champions.Count > 1)
             {
                 var player1 = _Champions[0];
                 var player2 = _Champions[1];
-                _MessageService.StartFight(player1.GetName(), _Champions[1].GetName());
+                messageService.StartFight(player1.GetName(), _Champions[1].GetName());
                 _Champions[0].RestartHp();
                 _Champions[1].RestartHp();
                 while (player1.CurrentHealth > 0 && (player2.CurrentHealth > 0))
@@ -51,19 +53,19 @@ namespace RPG.Services.Fight
                                 criticalHit = true;
                                 damage = CritDmg(damage);
                             }
-                            DamageService.Hit(_Champions[i], _Champions[i == 0 ? 1 : 0], damage, criticalHit, skill);
+                            _damageService.Hit(_Champions[i], _Champions[i == 0 ? 1 : 0], damage, criticalHit, skill);
 
                         }
                         
                         else
                         {
-                            _MessageService.Miss(_Champions[i].GetName());
+                            messageService.Miss(_Champions[i].GetName());
                         }
                         if (_Champions[i == 0 ? 1 : 0].CurrentHealth <= 0)
                         {
                             _ladderService.AddToLadder(_Champions[i == 0 ? 1 : 0]);
                             _Champions.RemoveAt(i == 0 ? 1 : 0);
-                            _MessageService.Winner(_Champions[0].GetName());
+                            messageService.Winner(_Champions[0].GetName());
                             break;
                         }
                     }
