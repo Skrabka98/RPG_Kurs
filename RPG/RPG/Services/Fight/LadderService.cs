@@ -1,25 +1,22 @@
 ﻿using RPG.Champions;
+using RPG.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace RPG.Services.Fight
 {
-    class LeaderService
+    class LadderService : ILadderService
     {
-        private int _numberOfChampion;
         List<Champion> Ladder = new List<Champion>();
-        public LeaderService(int numberOfChampion)
-        {
-            _numberOfChampion = numberOfChampion;
-        }
-        public void LadderSystem()
+
+        public void LadderSystem(int count)
         {
             Console.WriteLine("#################");
             foreach (var item in Ladder)
             {
-                Console.WriteLine("Miejsce " + _numberOfChampion + ". Zajmuje " + item.GetName());
-                _numberOfChampion--;
+                Console.WriteLine("Miejsce " + count + ". Zajmuje " + item.GetName());
+                count--;
             }
             
         }

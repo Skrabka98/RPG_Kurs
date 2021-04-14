@@ -8,7 +8,6 @@ namespace RPG.Services.Fight
 {
     class DamageService
     {
-        private SkillService SkillService = new SkillService();
         private MessageService MessageService = new MessageService();
         public void Hit(Champion attacker, Champion defender, int dmg, bool crit, Skill skill)
         {

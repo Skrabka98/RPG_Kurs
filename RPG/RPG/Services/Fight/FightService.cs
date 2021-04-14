@@ -1,27 +1,29 @@
 ﻿using RPG.Champions;
+using RPG.Interfaces;
 using RPG.Skills;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace RPG.Services.Fight
 {
     class FightService
     {
-        List<Champion> _Champions;
         private readonly int critChance = 20;
-        private LeaderService _leaderService;
+        private ILadderService _ladderService;
         private DamageService DamageService = new DamageService();
-        private MessageService _MessageService;
+        private IMessageService _MessageService;
         private SkillService SkillService = new SkillService();
-        public FightService(List<Champion> Champions, MessageService MessageService)
-        {
-            _Champions = Champions;
-            _leaderService = new LeaderService(_Champions.Count);
-            _MessageService = MessageService;
+        private int championCount;
+        public FightService(IMessageService messageService, ILadderService ladderService)
+        {    
+            _MessageService = messageService;
+            _ladderService = ladderService;
         }
-        public void Fight()
+        public void Fight(List<Champion> _Champions)
         {
+            championCount = _Champions.Count;
             int damage;
             while (_Champions.Count > 1)
             {
@@ -52,13 +54,14 @@ namespace RPG.Services.Fight
                             DamageService.Hit(_Champions[i], _Champions[i == 0 ? 1 : 0], damage, criticalHit, skill);
 
                         }
+                        
                         else
                         {
                             _MessageService.Miss(_Champions[i].GetName());
                         }
                         if (_Champions[i == 0 ? 1 : 0].CurrentHealth <= 0)
                         {
-                            _leaderService.AddToLadder(_Champions[i == 0 ? 1 : 0]);
+                            _ladderService.AddToLadder(_Champions[i == 0 ? 1 : 0]);
                             _Champions.RemoveAt(i == 0 ? 1 : 0);
                             _MessageService.Winner(_Champions[0].GetName());
                             break;
@@ -67,12 +70,13 @@ namespace RPG.Services.Fight
                    
                 }
             }
-            _leaderService.AddToLadder(_Champions[0]);
-            _leaderService.LadderSystem();
+            _ladderService.AddToLadder(_Champions[0]);
+            _ladderService.LadderSystem(championCount);
 
         }
         public int HitDmg(int minDmg, int maxDmg)
         {
+
             var rand = new Random();
             int dmg = rand.Next(minDmg, maxDmg);
             return dmg;
