@@ -8,7 +8,7 @@ namespace RPG.Services.Fight
 {
     class LadderService : ILadderService
     {
-        List<Champion> Ladder = new List<Champion>();
+       private readonly List<Champion> Ladder = new List<Champion>();
 
         public void LadderSystem(int count)
         {

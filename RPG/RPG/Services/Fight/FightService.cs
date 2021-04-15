@@ -11,10 +11,10 @@ namespace RPG.Services.Fight
     class FightService
     {
         private readonly int critChance = 20;
-        private ILadderService _ladderService;
+        private readonly ILadderService _ladderService;
         private readonly DamageService _damageService;
-        private IMessageFactory _messageFactory;
-        private SkillService SkillService = new SkillService();
+        private readonly IMessageFactory _messageFactory;
+        private readonly SkillService SkillService = new SkillService();
         private int championCount;
         public FightService(IMessageFactory messageFactory, ILadderService ladderService, DamageService damageService)
         {    
@@ -54,9 +54,7 @@ namespace RPG.Services.Fight
                                 damage = CritDmg(damage);
                             }
                             _damageService.Hit(_Champions[i], _Champions[i == 0 ? 1 : 0], damage, criticalHit, skill);
-
                         }
-                        
                         else
                         {
                             messageService.Miss(_Champions[i].GetName());
@@ -69,16 +67,13 @@ namespace RPG.Services.Fight
                             break;
                         }
                     }
-                   
                 }
             }
             _ladderService.AddToLadder(_Champions[0]);
             _ladderService.LadderSystem(championCount);
-
         }
         public int HitDmg(int minDmg, int maxDmg)
         {
-
             var rand = new Random();
             int dmg = rand.Next(minDmg, maxDmg);
             return dmg;
