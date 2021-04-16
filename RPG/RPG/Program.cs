@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RPG
 {
-    class Program
+    public class Program
     {
         private readonly Game _game;
         public Program(Game game)

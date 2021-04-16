@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace RPG.Services.Fight
 {
-    class FightService
+    public class FightService
     {
         private readonly int critChance = 20;
         private readonly ILadderService _ladderService;

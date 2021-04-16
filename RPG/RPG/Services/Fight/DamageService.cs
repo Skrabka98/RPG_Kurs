@@ -7,9 +7,9 @@ using System.Text;
 
 namespace RPG.Services.Fight
 {
-    class DamageService
+    public class DamageService
     {
-        private IMessageFactory _messageFactory;
+        private readonly IMessageFactory _messageFactory;
 
         public DamageService(IMessageFactory messageFactory)
         {

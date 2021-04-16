@@ -7,7 +7,7 @@ using RPG.Services.Fight;
 
 namespace RPG
 {
-     sealed class Game 
+    public sealed class Game 
     {
         public List<Champion> Champions = new List<Champion>();
         private readonly FightService _fightService;
@@ -35,14 +35,7 @@ namespace RPG
             string answer;
             Console.WriteLine("Zapisać do pliku? (Yes)");
             answer = Console.ReadLine();
-            if (answer.ToLower() == "yes")
-            {
-                _messageFactory.Create(true);
-            }
-            else
-            {
-                _messageFactory.Create();
-            }
+            _messageFactory.Create(answer.ToLower() == "yes");
 
         }
 

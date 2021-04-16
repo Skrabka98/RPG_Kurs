@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RPG.Interfaces
 {
-    interface IMessageFactory
+    public interface IMessageFactory
     {
         IMessageService Create(bool isFile = false);
     }
