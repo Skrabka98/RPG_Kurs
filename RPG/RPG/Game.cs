@@ -35,7 +35,7 @@ namespace RPG
             string answer;
             Console.WriteLine("Zapisać do pliku? (Yes)");
             answer = Console.ReadLine();
-            if (answer == "Yes" || answer == "yes")
+            if (answer.ToLower() == "yes")
             {
                 _messageFactory.Create(true);
             }

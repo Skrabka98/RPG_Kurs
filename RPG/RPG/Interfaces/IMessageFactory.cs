@@ -7,6 +7,6 @@ namespace RPG.Interfaces
 {
     interface IMessageFactory
     {
-        IMessageService Create(bool isFoo = false);
+        IMessageService Create(bool isFile = false);
     }
 }
